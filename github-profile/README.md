@@ -1,7 +1,7 @@
 <!--
   GitHub profile README.
-  To use it: create a public repo named exactly like your GitHub username (github.com/YOUR-USERNAME/YOUR-USERNAME),
-  add this file as its README.md, and replace YOUR-USERNAME below with your username.
+  To use it: create a public repo named exactly like your GitHub username (github.com/zaidsaifan-star/zaidsaifan-star),
+  add this file as its README.md, and the links below already point to zaidsaifan-star.
 -->
 
 <h1 align="center">Hi, I'm Zaid Saifan ⚡</h1>
@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://YOUR-USERNAME.github.io"><img src="https://img.shields.io/badge/Portfolio-visit-F08A4B?style=for-the-badge&labelColor=0E1520" alt="Portfolio"></a>
+  <a href="https://zaidsaifan-star.github.io"><img src="https://img.shields.io/badge/Portfolio-visit-F08A4B?style=for-the-badge&labelColor=0E1520" alt="Portfolio"></a>
   <a href="https://www.linkedin.com/in/zaid-saifan-0b369b356"><img src="https://img.shields.io/badge/LinkedIn-connect-7FB0FF?style=for-the-badge&logo=linkedin&labelColor=0E1520" alt="LinkedIn"></a>
   <a href="mailto:zaid.saifan06@gmail.com"><img src="https://img.shields.io/badge/Email-say%20hi-E8EDF4?style=for-the-badge&logo=gmail&logoColor=white&labelColor=0E1520" alt="Email"></a>
 </p>
@@ -27,12 +27,12 @@
 
 | Project | Highlights |
 | --- | --- |
-| [Hospital Autonomous Secure Delivery Robot](https://YOUR-USERNAME.github.io/projects/hospital-delivery-robot.html) | Altium PCB shield, 5 sensors + 4 actuator systems, RFID-locked cargo, 45 min runtime |
-| [Autonomous Golf Cart: Power & Throttle](https://YOUR-USERNAME.github.io/projects/golf-cart-power-and-throttle.html) | 2-layer 2 oz Cu PDB, 15–20 A, IPC-2221 sizing, PWM ESC throttle |
-| [Roboracer 1/10-Scale Race Car](https://YOUR-USERNAME.github.io/projects/roboracer-autonomous-race-car.html) | Isolated actuator/logic rails, 2D LiDAR + IMU for SLAM |
-| [Wireless RC Car](https://YOUR-USERNAME.github.io/projects/wireless-rc-car.html) | Electronic differential, PS5 control, Arduino C++, SolidWorks chassis |
-| [Analog Function Generator](https://YOUR-USERNAME.github.io/projects/analog-function-generator.html) | TL082 square/triangle/sine at 4.4 kHz, Micro-Cap → Altium PCB |
-| [FPGA Sequence Detector](https://YOUR-USERNAME.github.io/projects/fpga-sequence-detector.html) | 8-state Moore FSM, Gray coding cut gate cost 83 → 63 (−24%) |
+| [Hospital Autonomous Secure Delivery Robot](https://zaidsaifan-star.github.io/projects/hospital-delivery-robot.html) | Altium PCB shield, 5 sensors + 4 actuator systems, RFID-locked cargo, 45 min runtime |
+| [Autonomous Golf Cart: Power & Throttle](https://zaidsaifan-star.github.io/projects/golf-cart-power-and-throttle.html) | 2-layer 2 oz Cu PDB, 15–20 A, IPC-2221 sizing, PWM ESC throttle |
+| [Roboracer 1/10-Scale Race Car](https://zaidsaifan-star.github.io/projects/roboracer-autonomous-race-car.html) | Isolated actuator/logic rails, 2D LiDAR + IMU for SLAM |
+| [Wireless RC Car](https://zaidsaifan-star.github.io/projects/wireless-rc-car.html) | Electronic differential, PS5 control, Arduino C++, SolidWorks chassis |
+| [Analog Function Generator](https://zaidsaifan-star.github.io/projects/analog-function-generator.html) | TL082 square/triangle/sine at 4.4 kHz, Micro-Cap → Altium PCB |
+| [FPGA Sequence Detector](https://zaidsaifan-star.github.io/projects/fpga-sequence-detector.html) | 8-state Moore FSM, Gray coding cut gate cost 83 → 63 (−24%) |
 
 ### 🧰 Toolkit
 
