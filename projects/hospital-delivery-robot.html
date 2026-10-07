@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hospital Autonomous Secure Delivery Robot · Zaid Saifan</title>
+<meta name="description" content="A delivery robot for moving supplies between hospital departments. It drives itself down a corridor, stops before it hits anything, and only opens its cargo box for an authorized RFID card.">
+<meta property="og:title" content="Hospital Autonomous Secure Delivery Robot · Zaid Saifan">
+<meta property="og:description" content="A delivery robot for moving supplies between hospital departments. It drives itself down a corridor, stops before it hits anything, and only opens its cargo box for an authorized RFID card.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231F3A5F'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='monospace' font-weight='700' font-size='26' fill='%23F1F3F2'%3EZS%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;600;700;800&family=Red+Hat+Mono:wght@400;500;600&family=Red+Hat+Text:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><span class="brand-mark">ZS</span><span>Zaid Saifan</span></a>
+    <nav class="nav" aria-label="Main">
+      <a class="keep" href="../index.html#work" aria-current="page">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#contact">Contact</a>
+      <a class="btn-sm" href="../assets/Zaid_Saifan_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+  <p class="crumbs"><a href="../index.html#work">Projects</a> / Hospital Delivery Robot</p>
+  <div class="ds-head">
+    <div>
+      <p class="label label--copper">Western University · Team design project</p>
+      <h1>Hospital Autonomous Secure Delivery Robot</h1>
+      <p class="lede">A delivery robot for moving supplies between hospital departments. It drives itself down a corridor, stops before it hits anything, and only opens its cargo box for an authorized RFID card.</p>
+    </div>
+    <div class="ds-role"><span class="label">My role</span><b>Electrical architecture, PCB shield, control integration</b><div style="margin-top:.9rem"><ul class="tags"><li>Altium Designer</li><li>Arduino C++</li><li>PCB assembly</li><li>RFID</li><li>Power rails</li></ul></div></div>
+  </div>
+  <figure class="figure ds-hero"><button class="zoom" type="button" aria-label="Open image full size"><div class="media dark"><img src="../assets/img/hospital-pcb-3d.webp" alt="3D render of the custom shield in Altium. Every header is labelled on the silkscreen." loading="eager"></div></button><figcaption><b>Fig. 0</b><span>3D render of the custom shield in Altium. Every header is labelled on the silkscreen.</span></figcaption></figure>
+  <div class="ds-body">
+    <article class="prose">
+<section><h2><small>Brief</small>The problem</h2><p>Hospitals move medication, samples and supplies between departments all day. The work is repetitive and time-sensitive, and it carries a chain-of-custody requirement: the cargo can only go to the right person.</p>
+<p>Our brief was a vehicle that drives a corridor on its own, refuses to run into anything, and will not release its cargo without authorization.</p></section>
+<section><h2><small>PCB design</small>Off the breadboard, onto a custom shield</h2><p>I designed the electrical architecture as a single-layer <strong>Altium PCB shield</strong> that stacks directly onto an Arduino Uno. Every subsystem gets its own labelled header: 5 V power, RFID, ultrasonic, motor driver, Bluetooth, temperature sensor, servo and LCD, plus an onboard push button with a 10 kΩ pull-down.</p>
+<p>Labelling every connector on the silkscreen meant the harness could only go together one way, which removed a whole class of wiring mistakes during integration.</p></section>
+<section><h2><small>Power</small>Two rails from one battery</h2><ul>
+<li>One <strong>11.1 V LiPo</strong> feeds two buck converters: a <strong>5.1 V logic rail</strong> and a <strong>7.9 V motor rail</strong>.</li>
+<li>Keeping the rails separate holds motor switching noise off the sensors and the I²C bus.</li>
+<li>Stable ultrasonic readings are what made the obstacle stop safe to rely on.</li></ul></section>
+<section><h2><small>Control loop</small>Sensing and actuation</h2><p>Five sensors and four actuator systems run in one microcontroller control loop:</p>
+<ul>
+<li><strong>HC-SR04 ultrasonic</strong> measures range ahead and stops the robot inside 20 cm.</li>
+<li><strong>RC522 RFID</strong> reader unlocks the cargo compartment only for an authorized tag.</li>
+<li><strong>HC-05 Bluetooth</strong> carries commands and telemetry.</li>
+<li><strong>DHT11</strong> logs temperature and humidity inside the cargo box in transit.</li>
+<li>A <strong>16×2 LCD</strong> shows status, two DC motors run through an <strong>L298N</strong>, and a <strong>servo</strong> drives the latch.</li></ul></section>
+<section><h2><small>Integration</small>Build and debug</h2><p>I specified the components, drew the schematics and kept the full bill of materials. I then hand-soldered and assembled the shield, and used a multimeter to trace each wiring and integration fault back to its root cause until every subsystem test passed.</p></section>
+<section><h2><small>Validation</small>Results</h2><div class="results"><div class="result"><b>45 min</b><span>continuous runtime on one 11.1 V LiPo</span></div><div class="result"><b>100%</b><span>integration tests passed</span></div><div class="result"><b>< 20 cm</b><span>verified obstacle-stop distance</span></div></div></section>
+<section><h2><small>Figures</small>Board, wiring and build</h2><p style="color:var(--muted)">Select any figure to open it full size.</p><div class="gallery"><figure class="figure"><button class="zoom" type="button" aria-label="Open figure 1 full size"><div class="media dark"><img src="../assets/img/hospital-pcb-layout.webp" alt="Altium PCB layout: top copper, pads and silkscreen labels for each subsystem header" loading="lazy"></div></button><figcaption><b>Fig. 1</b><span>Altium PCB layout: top copper, pads and silkscreen labels for each subsystem header</span></figcaption></figure><figure class="figure"><button class="zoom" type="button" aria-label="Open figure 2 full size"><div class="media dark"><img src="../assets/img/hospital-pcb-3d.webp" alt="3D render of the shield with the push button, 10 kΩ resistor and headers populated" loading="lazy"></div></button><figcaption><b>Fig. 2</b><span>3D render of the shield with the push button, 10 kΩ resistor and headers populated</span></figcaption></figure><figure class="figure"><button class="zoom" type="button" aria-label="Open figure 3 full size"><div class="media dark"><img src="../assets/img/hospital-wiring.webp" alt="Full system wiring plan: Arduino Uno, sensors, RFID, LCD, L298N, buck converters and LiPo" loading="lazy"></div></button><figcaption><b>Fig. 3</b><span>Full system wiring plan: Arduino Uno, sensors, RFID, LCD, L298N, buck converters and LiPo</span></figcaption></figure><figure class="figure"><button class="zoom" type="button" aria-label="Open figure 4 full size"><div class="media dark"><img src="../assets/img/hospital-robot.webp" alt="The assembled robot, with the shield wired to every subsystem" loading="lazy"></div></button><figcaption><b>Fig. 4</b><span>The assembled robot, with the shield wired to every subsystem</span></figcaption></figure></div></section>
+    </article>
+    <aside class="ds-aside">
+      <div class="spec"><h2>Key specifications</h2><dl><div class="row"><dt>Team</dt><dd>Section 3, Team 6</dd></div><div class="row"><dt>Controller</dt><dd>Arduino Uno + custom shield</dd></div><div class="row"><dt>Sensors</dt><dd>HC-SR04 ultrasonic, RC522 RFID, HC-05 Bluetooth, DHT11 temp/humidity</dd></div><div class="row"><dt>Actuators</dt><dd>2 DC motors via L298N, servo latch, 16×2 LCD</dd></div><div class="row"><dt>Power</dt><dd>11.1 V LiPo → 5.1 V logic + 7.9 V motor rails</dd></div><div class="row"><dt>Runtime</dt><dd>45 min continuous</dd></div><div class="row"><dt>Tools</dt><dd>Altium Designer, Arduino IDE, multimeter</dd></div></dl></div>
+      <a class="btn btn--ghost" href="../assets/Zaid_Saifan_Resume.pdf" target="_blank" rel="noopener" style="justify-content:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>View my résumé</a>
+    </aside>
+  </div>
+  <nav class="pager" aria-label="More projects">
+    <a href="fpga-sequence-detector.html"><span class="label">← Previous project</span><b>FPGA Sequence Detector</b></a>
+    <a class="next" href="golf-cart-power-and-throttle.html"><span class="label">Next project →</span><b>Golf Cart Power &amp; Throttle</b></a>
+  </nav>
+</div>
+</main>
+<section class="section contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <p class="label">Contact</p>
+      <h2 style="margin-top:.6rem">Let's build something.</h2>
+      <p class="lead">I'm looking for 12–16 month co-op and internship terms starting May 2027 in power and electrical design, controls, robotics, embedded systems or hardware test.</p>
+      <div class="btns" style="margin-top:2rem">
+        <a class="btn" href="mailto:zaid.saifan06@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email me</a>
+        <a class="btn btn--ghost" href="https://www.linkedin.com/in/zaid-saifan-0b369b356" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4v-11Z"/></svg>LinkedIn</a>
+      </div>
+    </div>
+    <ul class="contact-list">
+      <li><span class="label">Email</span><span><a href="mailto:zaid.saifan06@gmail.com">zaid.saifan06@gmail.com</a><button class="copy" type="button" data-copy="zaid.saifan06@gmail.com">Copy</button></span></li>
+      <li><span class="label">Phone</span><span><a href="tel:+19056171304">(905) 617-1304</a></span></li>
+      <li><span class="label">LinkedIn</span><span><a href="https://www.linkedin.com/in/zaid-saifan-0b369b356" target="_blank" rel="noopener">linkedin.com/in/zaid-saifan</a></span></li>
+      <li><span class="label">Résumé</span><span><a href="../assets/Zaid_Saifan_Resume.pdf" target="_blank" rel="noopener">Zaid_Saifan_Resume.pdf</a></span></li>
+      <li><span class="label">Based in</span><span>London, Ontario</span></li>
+    </ul>
+  </div>
+</section>
+<footer class="site-foot">
+  <div class="wrap"><span>© <span id="year">2026</span> Zaid Saifan · Electrical Engineering, Western University</span><a href="../index.html#top">Back to top ↑</a></div>
+</footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

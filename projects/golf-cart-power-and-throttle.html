@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Autonomous Golf Cart: Power Distribution &amp; Throttle Control · Zaid Saifan</title>
+<meta name="description" content="A student team is turning a full-scale golf cart into an autonomous vehicle. I work on throttle and motor control, and co-designed the board that carries motor current and hands out clean logic rails.">
+<meta property="og:title" content="Autonomous Golf Cart: Power Distribution &amp; Throttle Control · Zaid Saifan">
+<meta property="og:description" content="A student team is turning a full-scale golf cart into an autonomous vehicle. I work on throttle and motor control, and co-designed the board that carries motor current and hands out clean logic rails.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231F3A5F'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='monospace' font-weight='700' font-size='26' fill='%23F1F3F2'%3EZS%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;600;700;800&family=Red+Hat+Mono:wght@400;500;600&family=Red+Hat+Text:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><span class="brand-mark">ZS</span><span>Zaid Saifan</span></a>
+    <nav class="nav" aria-label="Main">
+      <a class="keep" href="../index.html#work" aria-current="page">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#contact">Contact</a>
+      <a class="btn-sm" href="../assets/Zaid_Saifan_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+  <p class="crumbs"><a href="../index.html#work">Projects</a> / Golf Cart Power &amp; Throttle</p>
+  <div class="ds-head">
+    <div>
+      <p class="label label--copper">Western Engineering AutoPilot · Oct 2025 – present</p>
+      <h1>Autonomous Golf Cart: Power Distribution &amp; Throttle Control</h1>
+      <p class="lede">A student team is turning a full-scale golf cart into an autonomous vehicle. I work on throttle and motor control, and co-designed the board that carries motor current and hands out clean logic rails.</p>
+    </div>
+    <div class="ds-role"><span class="label">My role</span><b>Throttle &amp; motor control; power distribution board co-design</b><div style="margin-top:.9rem"><ul class="tags"><li>Altium Designer</li><li>PWM</li><li>ESC</li><li>IPC-2221</li><li>24 V LiFePO₄</li></ul></div></div>
+  </div>
+  <figure class="figure ds-hero"><button class="zoom" type="button" aria-label="Open image full size"><div class="media dark"><img src="../assets/img/pdb-3d.webp" alt="3D render of the WEAP golf cart PDB in Altium: battery input, two fused branches, the 24 → 12 V buck connector, bulk capacitor C1 and the Pololu motor-driver output." loading="eager"></div></button><figcaption><b>Fig. 0</b><span>3D render of the WEAP golf cart PDB in Altium: battery input, two fused branches, the 24 → 12 V buck connector, bulk capacitor C1 and the Pololu motor-driver output.</span></figcaption></figure>
+  <div class="ds-body">
+    <article class="prose">
+<section><h2><small>Context</small>The brief</h2><p>Everything downstream of the cart's 24 V traction pack, the motor drive, a single-board computer, four microcontrollers and their sensors, was being wired point to point. On a vehicle that drives itself, loose high-current wiring is a safety problem first.</p>
+<p>The fix was one board that carries motor-level current and supplies clean rails to the compute stack.</p></section>
+<section><h2><small>My subsystem</small>Throttle control</h2><ul>
+<li>Programmed a microcontroller to generate <strong>PWM throttle commands</strong> for a high-current ESC, automating acceleration on the full-scale cart.</li>
+<li>Wired, bench-tested and debugged the system for <strong>repeatable speed regulation</strong> before it went on the vehicle.</li></ul></section>
+<section><h2><small>Three tiers</small>Power architecture</h2><ul>
+<li>The 24 V rail runs straight to the motor driver through its own fuse and bulk capacitance, keeping the highest-current path short.</li>
+<li>A 24 → 12 V buck feeds everything that is not the drive motor.</li>
+<li>A 12 → 5 V stage supplies a Raspberry Pi 5 and four ESP32 controllers.</li>
+<li>Voltage, current and thermal margin were checked on every rail, not just the input.</li></ul>
+<figure class="figure"><div class="media"><svg viewBox="0 0 680 290" role="img" aria-label="Power tree: 24 V battery splits into a fused 20 A motor branch and a fused 5 A logic branch stepped down to 12 V and 5 V"><defs><marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" style="fill:var(--copper)"/></marker></defs><rect class="dg-box-cu" x="16" y="115" width="132" height="60" rx="6"/><text class="dg-t" x="82.0" y="142.0" text-anchor="middle">24 V LiFePO₄</text><text class="dg-s" x="82.0" y="158.0" text-anchor="middle">100 Ah pack</text><path class="dg-cu" d="M148 145 H190 V62 H222"/><path class="dg-cu" d="M190 145 V228 H222"/><circle class="dg-dot" cx="190" cy="145" r="4"/><rect class="dg-box-mask" x="222" y="37" width="92" height="50" rx="6"/><text class="dg-t" x="268.0" y="59.0" text-anchor="middle">F1 · 20 A</text><text class="dg-s" x="268.0" y="75.0" text-anchor="middle">motor fuse</text><path class="dg-cu" d="M314 62 H350" marker-end="url(#ahg)"/><rect class="dg-box" x="352" y="37" width="146" height="50" rx="6"/><text class="dg-t" x="425.0" y="59.0" text-anchor="middle">Motor driver</text><text class="dg-s" x="425.0" y="75.0" text-anchor="middle">bulk caps at input</text><path class="dg-cu" d="M498 62 H534" marker-end="url(#ahg)"/><rect class="dg-box" x="536" y="37" width="128" height="50" rx="6"/><text class="dg-t" x="600.0" y="59.0" text-anchor="middle">Brushed DC</text><text class="dg-s" x="600.0" y="75.0" text-anchor="middle">traction motor</text><rect class="dg-box-mask" x="222" y="203" width="92" height="50" rx="6"/><text class="dg-t" x="268.0" y="225.0" text-anchor="middle">F2 · 5 A</text><text class="dg-s" x="268.0" y="241.0" text-anchor="middle">logic fuse</text><path class="dg-line" d="M314 228 H350" marker-end="url(#ahg)"/><rect class="dg-box" x="352" y="203" width="96" height="50" rx="6"/><text class="dg-t" x="400.0" y="225.0" text-anchor="middle">Buck</text><text class="dg-s" x="400.0" y="241.0" text-anchor="middle">24 → 12 V</text><path class="dg-line" d="M448 228 H470" marker-end="url(#ahg)"/><rect class="dg-box" x="472" y="203" width="70" height="50" rx="6"/><text class="dg-t" x="507.0" y="225.0" text-anchor="middle">Buck</text><text class="dg-s" x="507.0" y="241.0" text-anchor="middle">12 → 5 V</text><path class="dg-line" d="M542 228 H560" marker-end="url(#ahg)"/><rect class="dg-box" x="562" y="203" width="102" height="50" rx="6"/><text class="dg-t" x="613.0" y="225.0" text-anchor="middle">Pi 5 +</text><text class="dg-s" x="613.0" y="241.0" text-anchor="middle">4× ESP32</text><text class="dg-cu-t" x="200" y="20">15–20 A continuous · 2 oz Cu · IPC-2221</text><text class="dg-cu-t" x="200" y="282">logic tier</text></svg></div><figcaption><b>Diagram</b><span>Power tree. The motor branch stays short and is fused separately from the stepped-down logic tier.</span></figcaption></figure></section>
+<section><h2><small>Schematic</small>On the board</h2><ul>
+<li><strong>Battery Connect</strong> brings the 24 V pack onto the board through a screw-terminal block.</li>
+<li><strong>Fuse 1</strong> protects the branch that feeds the <strong>24 → 12 V buck converter</strong> for the logic tier.</li>
+<li><strong>Fuse 2</strong> protects the motor branch, which passes a <strong>1000 µF bulk capacitor (C1)</strong> before the <strong>Pololu motor driver</strong> output.</li>
+<li>All grounds return on one shared net, and every connector uses the same screw-terminal footprint, so the harness is simple to service.</li></ul></section>
+<section><h2><small>Copper sizing</small>Carrying the current</h2><ul>
+<li>Trace widths calculated to <strong>IPC-2221</strong> for a 15–20 A continuous target.</li>
+<li><strong>2 oz copper</strong> on both layers, with polygon pours instead of discrete traces.</li>
+<li><strong>Via stitching</strong> so both pours share the load and spread the heat.</li></ul>
+<p>Heat dissipation was a placement constraint from the first layout pass.</p></section>
+<section><h2><small>Safety</small>Protection</h2><p>A 5 A fuse on the logic branch and a 20 A fuse on the motor branch, coordinated with the driver's current limit so the fuse acts last. Bulk capacitance holds the motor rail up through current steps, and anti-spark connectors protect the contacts when the 100 Ah pack is connected. The board shipped with a full BOM and wiring documentation for design review.</p></section>
+<section><h2><small>Validation</small>Results</h2><div class="results"><div class="result"><b>15–20 A</b><span>continuous current target</span></div><div class="result"><b>3</b><span>power tiers: 24 V, 12 V, 5 V</span></div><div class="result"><b>2 oz</b><span>copper on both layers</span></div></div></section>
+<p class="note"><b>Next step:</b> current sensing on each branch, reported back to the compute stack, so the vehicle can see its own power draw.</p>
+<section><h2><small>Figures</small>Board and schematic</h2><p style="color:var(--muted)">Select any figure to open it full size.</p><div class="gallery"><figure class="figure"><button class="zoom" type="button" aria-label="Open figure 1 full size"><div class="media"><img src="../assets/img/pdb-3d.webp" alt="3D render: wide copper traces with via stitching between the fuses, buck connector, C1 and the Pololu output. Silkscreen credits Zaid &amp; Abdelrahman." loading="lazy"></div></button><figcaption><b>Fig. 1</b><span>3D render: wide copper traces with via stitching between the fuses, buck connector, C1 and the Pololu output. Silkscreen credits Zaid &amp; Abdelrahman.</span></figcaption></figure><figure class="figure"><button class="zoom" type="button" aria-label="Open figure 2 full size"><div class="media"><img src="../assets/img/pdb-schematic.webp" alt="Schematic: battery input split into two fused branches, one to the 24 → 12 V buck converter and one through C1 to the Pololu motor driver." loading="lazy"></div></button><figcaption><b>Fig. 2</b><span>Schematic: battery input split into two fused branches, one to the 24 → 12 V buck converter and one through C1 to the Pololu motor driver.</span></figcaption></figure></div></section>
+    </article>
+    <aside class="ds-aside">
+      <div class="spec"><h2>Key specifications</h2><dl><div class="row"><dt>Team</dt><dd>Western Engineering AutoPilot</dd></div><div class="row"><dt>Source</dt><dd>24 V, 100 Ah LiFePO₄</dd></div><div class="row"><dt>Board</dt><dd>2-layer, 2 oz copper</dd></div><div class="row"><dt>Current</dt><dd>15–20 A continuous</dd></div><div class="row"><dt>Rails</dt><dd>24 V motor · 12 V · 5 V</dd></div><div class="row"><dt>Loads</dt><dd>DC motor drive, Raspberry Pi 5, 4× ESP32</dd></div><div class="row"><dt>Protection</dt><dd>20 A motor fuse, 5 A logic fuse</dd></div><div class="row"><dt>Tools</dt><dd>Altium Designer, microcontroller, bench supply</dd></div></dl></div>
+      <a class="btn btn--ghost" href="../assets/Zaid_Saifan_Resume.pdf" target="_blank" rel="noopener" style="justify-content:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>View my résumé</a>
+    </aside>
+  </div>
+  <nav class="pager" aria-label="More projects">
+    <a href="hospital-delivery-robot.html"><span class="label">← Previous project</span><b>Hospital Delivery Robot</b></a>
+    <a class="next" href="roboracer-autonomous-race-car.html"><span class="label">Next project →</span><b>Roboracer Race Car</b></a>
+  </nav>
+</div>
+</main>
+<section class="section contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <p class="label">Contact</p>
+      <h2 style="margin-top:.6rem">Let's build something.</h2>
+      <p class="lead">I'm looking for 12–16 month co-op and internship terms starting May 2027 in power and electrical design, controls, robotics, embedded systems or hardware test.</p>
+      <div class="btns" style="margin-top:2rem">
+        <a class="btn" href="mailto:zaid.saifan06@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email me</a>
+        <a class="btn btn--ghost" href="https://www.linkedin.com/in/zaid-saifan-0b369b356" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4v-11Z"/></svg>LinkedIn</a>
+      </div>
+    </div>
+    <ul class="contact-list">
+      <li><span class="label">Email</span><span><a href="mailto:zaid.saifan06@gmail.com">zaid.saifan06@gmail.com</a><button class="copy" type="button" data-copy="zaid.saifan06@gmail.com">Copy</button></span></li>
+      <li><span class="label">Phone</span><span><a href="tel:+19056171304">(905) 617-1304</a></span></li>
+      <li><span class="label">LinkedIn</span><span><a href="https://www.linkedin.com/in/zaid-saifan-0b369b356" target="_blank" rel="noopener">linkedin.com/in/zaid-saifan</a></span></li>
+      <li><span class="label">Résumé</span><span><a href="../assets/Zaid_Saifan_Resume.pdf" target="_blank" rel="noopener">Zaid_Saifan_Resume.pdf</a></span></li>
+      <li><span class="label">Based in</span><span>London, Ontario</span></li>
+    </ul>
+  </div>
+</section>
+<footer class="site-foot">
+  <div class="wrap"><span>© <span id="year">2026</span> Zaid Saifan · Electrical Engineering, Western University</span><a href="../index.html#top">Back to top ↑</a></div>
+</footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

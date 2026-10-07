@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FPGA Sequence Detector and Logic Optimization · Zaid Saifan</title>
+<meta name="description" content="An 8-state Moore machine that finds a 4-bit pattern in a serial stream, then an optimization pass that made it 24% cheaper in hardware.">
+<meta property="og:title" content="FPGA Sequence Detector and Logic Optimization · Zaid Saifan">
+<meta property="og:description" content="An 8-state Moore machine that finds a 4-bit pattern in a serial stream, then an optimization pass that made it 24% cheaper in hardware.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231F3A5F'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='monospace' font-weight='700' font-size='26' fill='%23F1F3F2'%3EZS%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;600;700;800&family=Red+Hat+Mono:wght@400;500;600&family=Red+Hat+Text:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><span class="brand-mark">ZS</span><span>Zaid Saifan</span></a>
+    <nav class="nav" aria-label="Main">
+      <a class="keep" href="../index.html#work" aria-current="page">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#contact">Contact</a>
+      <a class="btn-sm" href="../assets/Zaid_Saifan_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+  <p class="crumbs"><a href="../index.html#work">Projects</a> / FPGA Sequence Detector</p>
+  <div class="ds-head">
+    <div>
+      <p class="label label--copper">Western University · Digital logic</p>
+      <h1>FPGA Sequence Detector and Logic Optimization</h1>
+      <p class="lede">An 8-state Moore machine that finds a 4-bit pattern in a serial stream, then an optimization pass that made it 24% cheaper in hardware.</p>
+    </div>
+    <div class="ds-role"><span class="label">My role</span><b>FSM design, encoding, optimization, simulation</b><div style="margin-top:.9rem"><ul class="tags"><li>Quartus Prime</li><li>FPGA</li><li>Moore FSM</li><li>K-maps</li></ul></div></div>
+  </div>
+  <figure class="figure ds-hero"><div class="media"><svg viewBox="0 0 680 300" role="img" aria-label="Eight-state Moore machine with Gray-coded states arranged in a ring; gate input cost reduced from 83 to 63"><defs><marker id="ahf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" style="fill:var(--copper)"/></marker></defs><path class="dg-cu" d="M224.9 50.3 L251.0 61.1" marker-end="url(#ahf)"/><path class="dg-cu" d="M288.1 97.2 L298.9 123.2" marker-end="url(#ahf)"/><path class="dg-cu" d="M299.7 174.9 L288.9 201.0" marker-end="url(#ahf)"/><path class="dg-cu" d="M252.8 238.1 L226.8 248.9" marker-end="url(#ahf)"/><path class="dg-cu" d="M175.1 249.7 L149.0 238.9" marker-end="url(#ahf)"/><path class="dg-cu" d="M111.9 202.8 L101.1 176.8" marker-end="url(#ahf)"/><path class="dg-cu" d="M100.3 125.1 L111.1 99.0" marker-end="url(#ahf)"/><path class="dg-cu" d="M147.2 61.9 L173.2 51.1" marker-end="url(#ahf)"/><circle class="dg-box" cx="200.0" cy="40.0" r="25"/><text class="dg-s" x="200.0" y="36.0" text-anchor="middle">S0</text><text class="dg-t" x="200.0" y="52.0" text-anchor="middle" style="font-family:var(--f-mono);font-size:12px">000</text><circle class="dg-box" cx="277.8" cy="72.2" r="25"/><text class="dg-s" x="277.8" y="68.2" text-anchor="middle">S1</text><text class="dg-t" x="277.8" y="84.2" text-anchor="middle" style="font-family:var(--f-mono);font-size:12px">001</text><circle class="dg-box" cx="310.0" cy="150.0" r="25"/><text class="dg-s" x="310.0" y="146.0" text-anchor="middle">S2</text><text class="dg-t" x="310.0" y="162.0" text-anchor="middle" style="font-family:var(--f-mono);font-size:12px">011</text><circle class="dg-box" cx="277.8" cy="227.8" r="25"/><text class="dg-s" x="277.8" y="223.8" text-anchor="middle">S3</text><text class="dg-t" x="277.8" y="239.8" text-anchor="middle" style="font-family:var(--f-mono);font-size:12px">010</text><circle class="dg-box" cx="200.0" cy="260.0" r="25"/><text class="dg-s" x="200.0" y="256.0" text-anchor="middle">S4</text><text class="dg-t" x="200.0" y="272.0" text-anchor="middle" style="font-family:var(--f-mono);font-size:12px">110</text><circle class="dg-box" cx="122.2" cy="227.8" r="25"/><text class="dg-s" x="122.2" y="223.8" text-anchor="middle">S5</text><text class="dg-t" x="122.2" y="239.8" text-anchor="middle" style="font-family:var(--f-mono);font-size:12px">111</text><circle class="dg-box" cx="90.0" cy="150.0" r="25"/><text class="dg-s" x="90.0" y="146.0" text-anchor="middle">S6</text><text class="dg-t" x="90.0" y="162.0" text-anchor="middle" style="font-family:var(--f-mono);font-size:12px">101</text><circle class="dg-box-cu" cx="122.2" cy="72.2" r="25"/><text class="dg-s" x="122.2" y="68.2" text-anchor="middle">S7</text><text class="dg-t" x="122.2" y="84.2" text-anchor="middle" style="font-family:var(--f-mono);font-size:12px">100</text><text class="dg-s" x="200" y="154" text-anchor="middle">one bit flips</text><text class="dg-s" x="200" y="168" text-anchor="middle">per transition</text><text class="dg-cu-t" x="400" y="70">GATE INPUT COST</text><rect x="400" y="88" width="249" height="34" rx="4" style="fill:var(--line)"/><text class="dg-t" x="410" y="110">Binary · 83</text><rect x="400" y="136" width="189" height="34" rx="4" style="fill:var(--copper)"/><text class="dg-t" x="410" y="158" style="fill:var(--paper)">Gray · 63</text><text class="dg-t" x="400" y="210" style="font-size:30px;font-weight:800;fill:var(--copper)">−24%</text><text class="dg-s" x="400" y="232">same behaviour, less hardware</text></svg></div><figcaption><b>Fig. 0</b><span>State ring with Gray-coded assignments, and the gate input cost before and after.</span></figcaption></figure>
+  <div class="ds-body">
+    <article class="prose">
+<section><h2><small>Design</small>The machine</h2><p>A Moore machine with <strong>8 states</strong>, built from D flip-flops, that detects a 4-bit sequence anywhere in a continuous stream. When a partial match breaks, the machine falls back to the state for the suffix it has already seen instead of resetting to zero.</p></section>
+<section><h2><small>Optimization</small>Cheaper in gates</h2><ul>
+<li>A custom <strong>Gray-code</strong> state assignment changes only one state bit per transition, which reduces the terms each next-state equation has to cover.</li>
+<li><strong>Karnaugh-map</strong> simplification took total gate input cost from 83 to 63, a 24% cut with no change in behaviour.</li></ul></section>
+<section><h2><small>Simulation</small>Verification</h2><p>I checked timing and state transitions in Quartus Prime simulation, covering partial matches, broken matches and back-to-back detections as well as the normal case.</p></section>
+<section><h2><small>Validation</small>Results</h2><div class="results"><div class="result"><b>83 → 63</b><span>gate input cost</span></div><div class="result"><b>−24%</b><span>hardware cost, same behaviour</span></div><div class="result"><b>8</b><span>Moore states</span></div></div></section>
+    </article>
+    <aside class="ds-aside">
+      <div class="spec"><h2>Key specifications</h2><dl><div class="row"><dt>Tool</dt><dd>Quartus Prime</dd></div><div class="row"><dt>Elements</dt><dd>D flip-flops</dd></div><div class="row"><dt>States</dt><dd>8, Moore</dd></div><div class="row"><dt>Encoding</dt><dd>Custom Gray code</dd></div><div class="row"><dt>Gate input cost</dt><dd>83 → 63</dd></div><div class="row"><dt>Reduction</dt><dd>24%</dd></div></dl></div>
+      <a class="btn btn--ghost" href="../assets/Zaid_Saifan_Resume.pdf" target="_blank" rel="noopener" style="justify-content:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>View my résumé</a>
+    </aside>
+  </div>
+  <nav class="pager" aria-label="More projects">
+    <a href="analog-function-generator.html"><span class="label">← Previous project</span><b>Analog Function Generator</b></a>
+    <a class="next" href="hospital-delivery-robot.html"><span class="label">Next project →</span><b>Hospital Delivery Robot</b></a>
+  </nav>
+</div>
+</main>
+<section class="section contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <p class="label">Contact</p>
+      <h2 style="margin-top:.6rem">Let's build something.</h2>
+      <p class="lead">I'm looking for 12–16 month co-op and internship terms starting May 2027 in power and electrical design, controls, robotics, embedded systems or hardware test.</p>
+      <div class="btns" style="margin-top:2rem">
+        <a class="btn" href="mailto:zaid.saifan06@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email me</a>
+        <a class="btn btn--ghost" href="https://www.linkedin.com/in/zaid-saifan-0b369b356" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4v-11Z"/></svg>LinkedIn</a>
+      </div>
+    </div>
+    <ul class="contact-list">
+      <li><span class="label">Email</span><span><a href="mailto:zaid.saifan06@gmail.com">zaid.saifan06@gmail.com</a><button class="copy" type="button" data-copy="zaid.saifan06@gmail.com">Copy</button></span></li>
+      <li><span class="label">Phone</span><span><a href="tel:+19056171304">(905) 617-1304</a></span></li>
+      <li><span class="label">LinkedIn</span><span><a href="https://www.linkedin.com/in/zaid-saifan-0b369b356" target="_blank" rel="noopener">linkedin.com/in/zaid-saifan</a></span></li>
+      <li><span class="label">Résumé</span><span><a href="../assets/Zaid_Saifan_Resume.pdf" target="_blank" rel="noopener">Zaid_Saifan_Resume.pdf</a></span></li>
+      <li><span class="label">Based in</span><span>London, Ontario</span></li>
+    </ul>
+  </div>
+</section>
+<footer class="site-foot">
+  <div class="wrap"><span>© <span id="year">2026</span> Zaid Saifan · Electrical Engineering, Western University</span><a href="../index.html#top">Back to top ↑</a></div>
+</footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

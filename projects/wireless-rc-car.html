@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wireless RC Car with Electronic Differential · Zaid Saifan</title>
+<meta name="description" content="A custom RC car driven from a PS5 controller. Each rear wheel has its own motor, and the firmware sets their speeds from the steering angle so the car corners without the inside wheel slipping.">
+<meta property="og:title" content="Wireless RC Car with Electronic Differential · Zaid Saifan">
+<meta property="og:description" content="A custom RC car driven from a PS5 controller. Each rear wheel has its own motor, and the firmware sets their speeds from the steering angle so the car corners without the inside wheel slipping.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231F3A5F'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='monospace' font-weight='700' font-size='26' fill='%23F1F3F2'%3EZS%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;600;700;800&family=Red+Hat+Mono:wght@400;500;600&family=Red+Hat+Text:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><span class="brand-mark">ZS</span><span>Zaid Saifan</span></a>
+    <nav class="nav" aria-label="Main">
+      <a class="keep" href="../index.html#work" aria-current="page">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#contact">Contact</a>
+      <a class="btn-sm" href="../assets/Zaid_Saifan_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+  <p class="crumbs"><a href="../index.html#work">Projects</a> / Wireless RC Car</p>
+  <div class="ds-head">
+    <div>
+      <p class="label label--copper">Western Engineering AutoPilot</p>
+      <h1>Wireless RC Car with Electronic Differential</h1>
+      <p class="lede">A custom RC car driven from a PS5 controller. Each rear wheel has its own motor, and the firmware sets their speeds from the steering angle so the car corners without the inside wheel slipping.</p>
+    </div>
+    <div class="ds-role"><span class="label">My role</span><b>Steering, chassis, electronic differential</b><div style="margin-top:.9rem"><ul class="tags"><li>Arduino C++</li><li>Python</li><li>SolidWorks</li><li>L298N</li><li>PWM</li></ul></div></div>
+  </div>
+  <figure class="figure ds-hero"><button class="zoom" type="button" aria-label="Open image full size"><div class="media dark"><img src="../assets/img/rc-three-quarter-rear.webp" alt="The finished car: printed upper deck and rear wing over the drivetrain, with the steering linkage visible at the front." loading="eager"></div></button><figcaption><b>Fig. 0</b><span>The finished car: printed upper deck and rear wing over the drivetrain, with the steering linkage visible at the front.</span></figcaption></figure>
+  <div class="ds-body">
+    <article class="prose">
+<section><h2><small>Problem</small>Why an electronic differential</h2><p>A fixed rear axle forces both wheels to turn at the same speed. In a corner the inside wheel travels a shorter arc, so one wheel has to slip, which shows up as understeer and lost traction.</p>
+<p>Giving each rear wheel its own motor lets the firmware set a speed offset from the steering input, so each wheel turns at the speed the corner asks for.</p></section>
+<section><h2><small>Firmware</small>Control path</h2><ul>
+<li>A PS5 controller pairs to a Python interface that turns stick positions into throttle and steering commands.</li>
+<li>Commands go wirelessly to <strong>C++ firmware on the Arduino</strong>, which handles PWM timing and the differential math.</li>
+<li>The loop is short, so the car responds without noticeable lag.</li></ul>
+<figure class="figure"><div class="media"><svg viewBox="0 0 680 260" role="img" aria-label="Control path from a PS5 controller through a Python interface and Arduino firmware to two rear motors and a steering servo"><defs><marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" style="fill:var(--copper)"/></marker></defs><rect class="dg-box" x="14" y="96" width="110" height="58" rx="6"/><text class="dg-t" x="69.0" y="122.0" text-anchor="middle">PS5</text><text class="dg-s" x="69.0" y="138.0" text-anchor="middle">controller</text><path class="dg-cu" d="M124 125 H154" marker-end="url(#ahr)"/><rect class="dg-box" x="156" y="96" width="120" height="58" rx="6"/><text class="dg-t" x="216.0" y="122.0" text-anchor="middle">Python</text><text class="dg-s" x="216.0" y="138.0" text-anchor="middle">stick → command</text><path class="dg-cu" d="M276 125 H306" marker-end="url(#ahr)" stroke-dasharray="5 4"/><text class="dg-cu-t" x="291" y="112" text-anchor="middle">wireless</text><rect class="dg-box-cu" x="308" y="88" width="128" height="74" rx="6"/><text class="dg-t" x="372.0" y="122.0" text-anchor="middle">Arduino</text><text class="dg-s" x="372.0" y="138.0" text-anchor="middle">C++ · PWM +</text><text class="dg-s" x="372" y="153" text-anchor="middle">differential math</text><path class="dg-line" d="M436 110 H470 V62 H490" marker-end="url(#ahr)"/><path class="dg-line" d="M436 140 H470 V200 H490" marker-end="url(#ahr)"/><rect class="dg-box" x="492" y="36" width="82" height="52" rx="6"/><text class="dg-t" x="533.0" y="59.0" text-anchor="middle">L298N</text><text class="dg-s" x="533.0" y="75.0" text-anchor="middle">H-bridge</text><path class="dg-line" d="M574 52 H600" marker-end="url(#ahr)"/><path class="dg-line" d="M574 74 H600" marker-end="url(#ahr)"/><rect class="dg-box-mask" x="602" y="30" width="64" height="30" rx="6"/><text class="dg-t" x="634.0" y="49.5" text-anchor="middle">M · L</text><rect class="dg-box-mask" x="602" y="64" width="64" height="30" rx="6"/><text class="dg-t" x="634.0" y="83.5" text-anchor="middle">M · R</text><rect class="dg-box-mask" x="492" y="174" width="174" height="52" rx="6"/><text class="dg-t" x="579.0" y="197.0" text-anchor="middle">Steering servo</text><text class="dg-s" x="579.0" y="213.0" text-anchor="middle">own supply rail</text><text class="dg-cu-t" x="14" y="250">11.1 V 3S LiPo → dual buck converters</text></svg></div><figcaption><b>Diagram</b><span>Control path from thumbstick to PWM. The Arduino owns PWM timing and the differential math.</span></figcaption></figure></section>
+<section><h2><small>Electrical</small>Power and motor hardware</h2><ul>
+<li>An <strong>11.1 V 3S LiPo</strong> powers the whole car, split by dual buck converters so logic and actuators never share a rail.</li>
+<li>An <strong>L298N dual H-bridge</strong> drives both rear motors.</li>
+<li>The steering servo has its own supply, so a stall cannot brown out the microcontroller mid-corner.</li>
+<li>I designed the circuit and wiring layout and selected every part against a BOM.</li></ul></section>
+<section><h2><small>Mechanical</small>Chassis</h2><p>I modelled the chassis in <strong>SolidWorks</strong> to package the steering servo, motors and electronics, then completed the mechanical assembly. The car was demonstrated live to club leadership, which tested control response, chassis integrity and firmware stability under real driving.</p></section>
+<section><h2><small>Demo</small>See it drive</h2><div class="videos"><figure class="figure vid-wide"><div class="media dark"><video controls muted playsinline preload="metadata" poster="../assets/video/rc-driving-poster.webp"><source src="../assets/video/rc-driving.mp4" type="video/mp4">Your browser can't play this video.</video></div><figcaption><b>Video</b><span>Driving test on carpet, controlled wirelessly from the PS5 controller.</span></figcaption></figure><figure class="figure vid-tall"><div class="media dark"><video controls muted playsinline preload="metadata" poster="../assets/video/rc-steering-poster.webp"><source src="../assets/video/rc-steering.mp4" type="video/mp4">Your browser can't play this video.</video></div><figcaption><b>Video</b><span>Bench test of the servo steering sweeping lock to lock.</span></figcaption></figure></div></section>
+<section><h2><small>Figures</small>Build photos and CAD</h2><p style="color:var(--muted)">Select any figure to open it full size.</p><div class="gallery"><figure class="figure"><button class="zoom" type="button" aria-label="Open figure 1 full size"><div class="media"><img src="../assets/img/rc-three-quarter.webp" alt="Front three-quarter view: printed upper deck, front and rear wings" loading="lazy"></div></button><figcaption><b>Fig. 1</b><span>Front three-quarter view: printed upper deck, front and rear wings</span></figcaption></figure><figure class="figure"><button class="zoom" type="button" aria-label="Open figure 2 full size"><div class="media"><img src="../assets/img/rc-side.webp" alt="Side profile: steering servo and gold linkage at the front, electronics bay between the axles" loading="lazy"></div></button><figcaption><b>Fig. 2</b><span>Side profile: steering servo and gold linkage at the front, electronics bay between the axles</span></figcaption></figure><figure class="figure"><button class="zoom" type="button" aria-label="Open figure 3 full size"><div class="media"><img src="../assets/img/rc-front-low.webp" alt="Low front view of the steering knuckles and printed front frame" loading="lazy"></div></button><figcaption><b>Fig. 3</b><span>Low front view of the steering knuckles and printed front frame</span></figcaption></figure><figure class="figure"><button class="zoom" type="button" aria-label="Open figure 4 full size"><div class="media"><img src="../assets/img/rc-front.webp" alt="Head-on view with the battery mounted on the deck" loading="lazy"></div></button><figcaption><b>Fig. 4</b><span>Head-on view with the battery mounted on the deck</span></figcaption></figure><figure class="figure"><button class="zoom" type="button" aria-label="Open figure 5 full size"><div class="media"><img src="../assets/img/rc-electronics.webp" alt="Electronics bay during build: Arduino Uno, buck converter, L298N, HC-05 Bluetooth and both rear drive motors" loading="lazy"></div></button><figcaption><b>Fig. 5</b><span>Electronics bay during build: Arduino Uno, buck converter, L298N, HC-05 Bluetooth and both rear drive motors</span></figcaption></figure><figure class="figure"><button class="zoom" type="button" aria-label="Open figure 6 full size"><div class="media"><img src="../assets/img/rc-cad.webp" alt="SolidWorks assembly model of the chassis, drivetrain and wings" loading="lazy"></div></button><figcaption><b>Fig. 6</b><span>SolidWorks assembly model of the chassis, drivetrain and wings</span></figcaption></figure></div></section>
+    </article>
+    <aside class="ds-aside">
+      <div class="spec"><h2>Key specifications</h2><dl><div class="row"><dt>Team</dt><dd>Western Engineering AutoPilot</dd></div><div class="row"><dt>Input</dt><dd>PS5 controller, wireless</dd></div><div class="row"><dt>Code</dt><dd>Arduino C++, Python interface</dd></div><div class="row"><dt>Drive</dt><dd>2 independent rear DC motors, L298N</dd></div><div class="row"><dt>Steering</dt><dd>Servo</dd></div><div class="row"><dt>Power</dt><dd>11.1 V 3S LiPo, dual buck converters</dd></div><div class="row"><dt>CAD</dt><dd>SolidWorks chassis</dd></div><div class="row"><dt>Parts</dt><dd>Tracked in an Excel BOM</dd></div></dl></div>
+      <a class="btn btn--ghost" href="../assets/Zaid_Saifan_Resume.pdf" target="_blank" rel="noopener" style="justify-content:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>View my résumé</a>
+    </aside>
+  </div>
+  <nav class="pager" aria-label="More projects">
+    <a href="roboracer-autonomous-race-car.html"><span class="label">← Previous project</span><b>Roboracer Race Car</b></a>
+    <a class="next" href="analog-function-generator.html"><span class="label">Next project →</span><b>Analog Function Generator</b></a>
+  </nav>
+</div>
+</main>
+<section class="section contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <p class="label">Contact</p>
+      <h2 style="margin-top:.6rem">Let's build something.</h2>
+      <p class="lead">I'm looking for 12–16 month co-op and internship terms starting May 2027 in power and electrical design, controls, robotics, embedded systems or hardware test.</p>
+      <div class="btns" style="margin-top:2rem">
+        <a class="btn" href="mailto:zaid.saifan06@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email me</a>
+        <a class="btn btn--ghost" href="https://www.linkedin.com/in/zaid-saifan-0b369b356" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4v-11Z"/></svg>LinkedIn</a>
+      </div>
+    </div>
+    <ul class="contact-list">
+      <li><span class="label">Email</span><span><a href="mailto:zaid.saifan06@gmail.com">zaid.saifan06@gmail.com</a><button class="copy" type="button" data-copy="zaid.saifan06@gmail.com">Copy</button></span></li>
+      <li><span class="label">Phone</span><span><a href="tel:+19056171304">(905) 617-1304</a></span></li>
+      <li><span class="label">LinkedIn</span><span><a href="https://www.linkedin.com/in/zaid-saifan-0b369b356" target="_blank" rel="noopener">linkedin.com/in/zaid-saifan</a></span></li>
+      <li><span class="label">Résumé</span><span><a href="../assets/Zaid_Saifan_Resume.pdf" target="_blank" rel="noopener">Zaid_Saifan_Resume.pdf</a></span></li>
+      <li><span class="label">Based in</span><span>London, Ontario</span></li>
+    </ul>
+  </div>
+</section>
+<footer class="site-foot">
+  <div class="wrap"><span>© <span id="year">2026</span> Zaid Saifan · Electrical Engineering, Western University</span><a href="../index.html#top">Back to top ↑</a></div>
+</footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>
