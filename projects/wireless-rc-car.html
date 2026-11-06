@@ -61,12 +61,119 @@
   <div class="ds-body">
     <article class="prose">
 <section><h2><small>Problem</small>Why an electronic differential</h2><p>A fixed rear axle forces both wheels to turn at the same speed. In a corner the inside wheel travels a shorter arc, so one wheel has to slip, which shows up as understeer and lost traction.</p>
-<p>Giving each rear wheel its own motor lets the firmware set a speed offset from the steering input, so each wheel turns at the speed the corner asks for.</p></section>
+<p>Giving each rear wheel its own motor lets the control code set a speed offset from the steering input, so each wheel turns at the speed the corner asks for.</p></section>
 <section><h2><small>Firmware</small>Control path</h2><ul>
-<li>A PS5 controller pairs to a Python interface that turns stick positions into throttle and steering commands.</li>
-<li>Commands go wirelessly to <strong>C++ firmware on the Arduino</strong>, which handles PWM timing and the differential math.</li>
+<li>A PS5 controller pairs to a Python script that mixes the triggers and stick into separate left and right rear-motor speeds.</li>
+<li>Those commands go wirelessly to <strong>C++ firmware on the Arduino</strong>, which turns them into PWM signals for the motor driver.</li>
 <li>The loop is short, so the car responds without noticeable lag.</li></ul>
-<figure class="figure"><div class="media"><svg viewBox="0 0 680 260" role="img" aria-label="Control path from a PS5 controller through a Python interface and Arduino firmware to two rear motors and a steering servo"><defs><marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" style="fill:var(--copper)"/></marker></defs><rect class="dg-box" x="14" y="96" width="110" height="58" rx="6"/><text class="dg-t" x="69.0" y="122.0" text-anchor="middle">PS5</text><text class="dg-s" x="69.0" y="138.0" text-anchor="middle">controller</text><path class="dg-cu" d="M124 125 H154" marker-end="url(#ahr)"/><rect class="dg-box" x="156" y="96" width="120" height="58" rx="6"/><text class="dg-t" x="216.0" y="122.0" text-anchor="middle">Python</text><text class="dg-s" x="216.0" y="138.0" text-anchor="middle">stick → command</text><path class="dg-cu" d="M276 125 H306" marker-end="url(#ahr)" stroke-dasharray="5 4"/><text class="dg-cu-t" x="291" y="112" text-anchor="middle">wireless</text><rect class="dg-box-cu" x="308" y="88" width="128" height="74" rx="6"/><text class="dg-t" x="372.0" y="122.0" text-anchor="middle">Arduino</text><text class="dg-s" x="372.0" y="138.0" text-anchor="middle">C++ · PWM +</text><text class="dg-s" x="372" y="153" text-anchor="middle">differential math</text><path class="dg-line" d="M436 110 H470 V62 H490" marker-end="url(#ahr)"/><path class="dg-line" d="M436 140 H470 V200 H490" marker-end="url(#ahr)"/><rect class="dg-box" x="492" y="36" width="82" height="52" rx="6"/><text class="dg-t" x="533.0" y="59.0" text-anchor="middle">L298N</text><text class="dg-s" x="533.0" y="75.0" text-anchor="middle">H-bridge</text><path class="dg-line" d="M574 52 H600" marker-end="url(#ahr)"/><path class="dg-line" d="M574 74 H600" marker-end="url(#ahr)"/><rect class="dg-box-mask" x="602" y="30" width="64" height="30" rx="6"/><text class="dg-t" x="634.0" y="49.5" text-anchor="middle">M · L</text><rect class="dg-box-mask" x="602" y="64" width="64" height="30" rx="6"/><text class="dg-t" x="634.0" y="83.5" text-anchor="middle">M · R</text><rect class="dg-box-mask" x="492" y="174" width="174" height="52" rx="6"/><text class="dg-t" x="579.0" y="197.0" text-anchor="middle">Steering servo</text><text class="dg-s" x="579.0" y="213.0" text-anchor="middle">own supply rail</text><text class="dg-cu-t" x="14" y="250">11.1 V 3S LiPo → dual buck converters</text></svg></div><figcaption><b>Diagram</b><span>Control path from thumbstick to PWM. The Arduino owns PWM timing and the differential math.</span></figcaption></figure></section>
+<figure class="figure"><div class="media"><svg viewBox="0 0 680 260" role="img" aria-label="Control path from a PS5 controller through a Python interface and Arduino firmware to two rear motors and a steering servo"><defs><marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" style="fill:var(--copper)"/></marker></defs><rect class="dg-box" x="14" y="96" width="110" height="58" rx="6"/><text class="dg-t" x="69.0" y="122.0" text-anchor="middle">PS5</text><text class="dg-s" x="69.0" y="138.0" text-anchor="middle">controller</text><path class="dg-cu" d="M124 125 H154" marker-end="url(#ahr)"/><rect class="dg-box" x="156" y="96" width="120" height="58" rx="6"/><text class="dg-t" x="216.0" y="122.0" text-anchor="middle">Python</text><text class="dg-s" x="216.0" y="138.0" text-anchor="middle">L/R motor mixing</text><path class="dg-cu" d="M276 125 H306" marker-end="url(#ahr)" stroke-dasharray="5 4"/><text class="dg-cu-t" x="291" y="112" text-anchor="middle">wireless</text><rect class="dg-box-cu" x="308" y="88" width="128" height="74" rx="6"/><text class="dg-t" x="372.0" y="122.0" text-anchor="middle">Arduino</text><text class="dg-s" x="372.0" y="138.0" text-anchor="middle">C++ firmware</text><text class="dg-s" x="372" y="153" text-anchor="middle">PWM output</text><path class="dg-line" d="M436 110 H470 V62 H490" marker-end="url(#ahr)"/><path class="dg-line" d="M436 140 H470 V200 H490" marker-end="url(#ahr)"/><rect class="dg-box" x="492" y="36" width="82" height="52" rx="6"/><text class="dg-t" x="533.0" y="59.0" text-anchor="middle">L298N</text><text class="dg-s" x="533.0" y="75.0" text-anchor="middle">H-bridge</text><path class="dg-line" d="M574 52 H600" marker-end="url(#ahr)"/><path class="dg-line" d="M574 74 H600" marker-end="url(#ahr)"/><rect class="dg-box-mask" x="602" y="30" width="64" height="30" rx="6"/><text class="dg-t" x="634.0" y="49.5" text-anchor="middle">M · L</text><rect class="dg-box-mask" x="602" y="64" width="64" height="30" rx="6"/><text class="dg-t" x="634.0" y="83.5" text-anchor="middle">M · R</text><rect class="dg-box-mask" x="492" y="174" width="174" height="52" rx="6"/><text class="dg-t" x="579.0" y="197.0" text-anchor="middle">Steering servo</text><text class="dg-s" x="579.0" y="213.0" text-anchor="middle">own supply rail</text><text class="dg-cu-t" x="14" y="250">11.1 V 3S LiPo → dual buck converters</text></svg></div><figcaption><b>Diagram</b><span>Control path from thumbstick to PWM. The Python script mixes throttle and steering into left/right speeds; the Arduino turns them into PWM.</span></figcaption></figure></section>
+<section><h2><small>Python</small>The controller script</h2><p>This is the laptop side of the control path above. It reads the PS5 controller with <strong>pygame</strong> and sends commands to the car's Bluetooth module with <strong>pyserial</strong> at 9600 baud.</p>
+<ul>
+<li><strong>R2</strong> is gas, <strong>L2</strong> is brake and reverse, and the left stick steers, with a 10% deadzone.</li>
+<li>Throttle and steering become separate left and right rear-motor commands from −255 to 255, sent as a <code>left,right</code> line. The car turns by driving its two rear wheels at different speeds.</li>
+<li>The controller is polled every 20 ms, and a command is only sent when it changes.</li>
+<li><strong>✕</strong> toggles an autopilot mode (<code>AUTO</code> / <code>MAN</code>), and Ctrl+C sends <code>0,0</code> so the car stops before the script exits.</li></ul>
+<figure class="code-block"><div class="code-head"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="code-name">ps5_bluetooth_controller.py</span><span class="code-actions"><button class="code-btn code-copy" type="button">Copy</button><a class="code-btn" href="../assets/code/ps5_bluetooth_controller.py" download>Download .py</a></span></div><div class="code-body"><pre><code class="lang-py">import pygame
+import serial
+import time
+
+# ── Configuration ──────────────────────────────────────────────
+BLUETOOTH_PORT = 'COM5'  # &lt;--- CHANGE TO YOUR PORT
+BAUD_RATE = 9600
+UPDATE_RATE = 0.02
+DEADZONE = 0.1
+
+try:
+    bt = serial.Serial(BLUETOOTH_PORT, BAUD_RATE, timeout=1)
+    print("Bluetooth connected successfully!")
+except Exception as e:
+    print(f"Error connecting to Bluetooth: {e}")
+    exit()
+
+pygame.init()
+pygame.joystick.init()
+
+if pygame.joystick.get_count() == 0:
+    print("No controller detected.")
+    exit()
+
+controller = pygame.joystick.Joystick(0)
+controller.init()
+print(f"Controller Connected: {controller.get_name()}")
+
+# PS5 Controller Mappings
+AXIS_STEER = 0
+AXIS_L2 = 4
+AXIS_R2 = 5
+BTN_CROSS = 0  # The 'X' Button on PS5
+
+last_command = ""
+auto_mode = False
+last_btn_state = False
+
+print("\n--- PS5 Controls Active ---")
+print("R2: Gas | L2: Brake/Reverse | L3: Steer")
+print("Press 'X' to toggle Autopilot!")
+
+try:
+    while True:
+        pygame.event.pump()
+
+        # --- AUTOPILOT TOGGLE LOGIC ---
+        btn_state = controller.get_button(BTN_CROSS)
+        if btn_state and not last_btn_state:  # Button was just pushed down
+            auto_mode = not auto_mode  # Toggle the state
+
+            if auto_mode:
+                bt.write(b"AUTO\n")
+                print("\n[!] AUTOPILOT ENGAGED [!]\n")
+            else:
+                bt.write(b"MAN\n")
+                print("\n[-] MANUAL CONTROL RESTORED [-]\n")
+
+        last_btn_state = btn_state
+
+        # --- MANUAL DRIVING LOGIC ---
+        # We only calculate and send joystick data if Autopilot is OFF
+        if not auto_mode:
+            steer_axis = controller.get_axis(AXIS_STEER)
+            l2_axis = controller.get_axis(AXIS_L2)
+            r2_axis = controller.get_axis(AXIS_R2)
+
+            if abs(steer_axis) &lt; DEADZONE:
+                steer_axis = 0.0
+
+            brake = max(0.0, (l2_axis + 1.0) / 2.0)
+            gas = max(0.0, (r2_axis + 1.0) / 2.0)
+
+            throttle = gas - brake
+
+            left_motor = throttle + steer_axis
+            right_motor = throttle - steer_axis
+
+            left_motor = max(-1.0, min(1.0, left_motor))
+            right_motor = max(-1.0, min(1.0, right_motor))
+
+            left_pwm = int(left_motor * 255)
+            right_pwm = int(right_motor * 255)
+
+            command = f"{left_pwm},{right_pwm}\n"
+
+            if command != last_command:
+                bt.write(command.encode('utf-8'))
+                last_command = command
+                # Only print the dashboard occasionally so it doesn't flood the terminal
+                print(f"\rMANUAL &gt;&gt; L2: {brake:.2f} | R2: {gas:.2f} | Motor L: {left_pwm:4d} | Motor R: {right_pwm:4d}",
+                      end="")
+
+        time.sleep(UPDATE_RATE)
+
+except KeyboardInterrupt:
+    print("\nExiting. Stopping car...")
+    bt.write(b"0,0\n")
+    bt.close()
+    pygame.quit()</code></pre></div><button class="code-more" type="button" aria-expanded="false">Show full code</button><figcaption><b>Code</b><span>Laptop-side controller script: PS5 triggers and stick → left/right rear-motor commands over Bluetooth serial.</span></figcaption></figure>
+</section>
 <section><h2><small>Electrical</small>Power and motor hardware</h2><ul>
 <li>An <strong>11.1 V 3S LiPo</strong> powers the whole car, split by dual buck converters so logic and actuators never share a rail.</li>
 <li>An <strong>L298N dual H-bridge</strong> drives both rear motors.</li>

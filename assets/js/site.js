@@ -414,6 +414,46 @@
     });
   });
 
+  /* ---------- Code listings: Python highlighting, line numbers, copy, expand ---------- */
+  var esc = function (s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+  var PY = /(#[^\n]*)|([fbrFBR]?(?:"(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'))|\b(import|from|as|try|except|finally|while|for|in|if|elif|else|not|and|or|is|def|return|class|with|break|continue|pass|True|False|None)\b|\b(print|exit|abs|max|min|int|float|str|len|range|Exception|KeyboardInterrupt)\b|\b(\d+(?:\.\d+)?)\b|\b([A-Za-z_]\w*)(?=\()/g;
+  function highlightPy(src) {
+    var out = '', last = 0, m;
+    PY.lastIndex = 0;
+    while ((m = PY.exec(src))) {
+      out += esc(src.slice(last, m.index));
+      var cls = m[1] ? 'c' : m[2] ? 's' : m[3] ? 'k' : m[4] ? 'b' : m[5] ? 'n' : 'f';
+      out += '<span class="tok-' + cls + '">' + esc(m[0]) + '</span>';
+      last = PY.lastIndex;
+    }
+    return out + esc(src.slice(last));
+  }
+  $$('.code-block').forEach(function (block) {
+    var code = block.querySelector('code');
+    var raw = code.textContent.replace(/\n$/, '');
+    var html = code.classList.contains('lang-py') ? highlightPy(raw) : esc(raw);
+    code.innerHTML = html.split('\n').map(function (l) { return '<span class="line">' + (l || ' ') + '</span>'; }).join('');
+
+    var copyBtn = block.querySelector('.code-copy');
+    if (copyBtn) copyBtn.addEventListener('click', function () {
+      var done = function () { copyBtn.textContent = 'Copied ✓'; copyBtn.classList.add('is-done'); setTimeout(function () { copyBtn.textContent = 'Copy'; copyBtn.classList.remove('is-done'); }, 1500); };
+      try { navigator.clipboard.writeText(raw + '\n').then(done, function () {}); } catch (e) {}
+    });
+
+    var more = block.querySelector('.code-more');
+    var body = block.querySelector('.code-body');
+    if (more && body) {
+      if (body.scrollHeight <= body.clientHeight + 8) { more.remove(); block.classList.add('is-open'); return; }
+      more.addEventListener('click', function () {
+        var open = !block.classList.contains('is-open');
+        block.classList.toggle('is-open', open);
+        more.setAttribute('aria-expanded', open ? 'true' : 'false');
+        more.textContent = open ? 'Collapse code' : 'Show full code';
+        if (!open) block.scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
+      });
+    }
+  });
+
   /* ---------- Lightbox for project figures ---------- */
   $$('button.zoom').forEach(function (btn) {
     btn.addEventListener('click', function () {
